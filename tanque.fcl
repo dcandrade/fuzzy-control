@@ -1,0 +1,55 @@
+/*
+	Example: A tip calculation FIS (fuzzy inference system)
+	Calculates tip based on 'servie' and 'food'
+
+	If you want to about this example (and fuzzy logic), please 
+	read Matlab's tutorial on fuzzy logic toolbox 
+	http://www.mathworks.com/access/helpdesk/help/pdf_doc/fuzzy/fuzzy.pdf
+
+									Pablo Cingolani 
+									pcingola@users.sourceforge.net
+*/
+
+FUNCTION_BLOCK tipper	// Block definition (there may be more than one block per file)
+
+VAR_INPUT
+	dv : REAL; // variação da vazão (saída - desejada)
+	dt : REAL; // variação da temperatura (saída - desejada)
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	vazao_entrada_quente : REAL;
+	vazao_entrada_fria : REAL;
+END_VAR
+
+FUZZIFY dv			// Fuzzify input variable 'service': {'poor', 'good' , 'excellent'}
+	TERM baixa := (0, 1) (2, 1) (5,0) ; 
+	TERM media := (3, 0) (4,1) (6,1) (7,0);
+	TERM alta := (5, 0) (8, 1) (10, 1);
+END_FUZZIFY
+
+FUZZIFY dt			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
+	TERM rancid := (0, 1) (1, 1) (3,0) ;
+	TERM delicious := (7,0) (9,1);
+END_FUZZIFY
+
+DEFUZZIFY vazao_entrada_fria			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM cheap := (0,0) (5,1) (10,0);
+	TERM average := (10,0) (15,1) (20,0);
+	TERM generous := (20,0) (25,1) (30,0);
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+DEFUZZIFY vazao_entrada_quente		// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM cheap := (0,0) (5,1) (10,0);
+	TERM average := (10,0) (15,1) (20,0);
+	TERM generous := (20,0) (25,1) (30,0);
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+
+
+END_FUNCTION_BLOCK
+
