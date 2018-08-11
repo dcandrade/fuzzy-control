@@ -2,35 +2,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tanque {
-    private final double G = 9.8;
-    private double alturaMaximaTanque = 5;
+    private final static double G = 9.8;
+    public final static int DELTA_T = 1;
+    private final static double VAZAO_MAXIMA_ENTRADA_QUENTE = 1;
+    private final static double VAZAO_MAXIMA_ENTRADA_FRIA = 1;
 
-    private double vazaoMaximaEntradaQuente = 1;
-    private double vazaoMaximaEntradaFria = 1;
-    private double vazaoEntradaQuente = 0.5;
-    private double vazaoEntradaFria = 0.5;
-    private double raioTanque = 2;
-    private double vazaoSaidaAguaQuente = 10;
-    private double vazaoSaidaAguaFria = 10;
+    private double alturaMaximaTanque = 10;
+    private double raioTanque = 10;
+
+
+    private double vazaoEntradaQuente = 1;
+    private double vazaoEntradaFria = 1;
+    private double vazaoDesejadaTanque;
+
     private double temperaturaEntradaAguaFria = 10;
     private double temperaturaEntradaAguaQuente = 35;
-    private double temperaturaDeseja = 30;
+    private double vazaoTorneira = 0.02;
 
-    public static int DELTA_T = 10;
+    private double temperaturaDesejada = 30;
+
 
     private List<Double> alturaAgua;
     private List<Double> temperaturaAgua;
 
 
-    public Tanque(double alturaInicialAgua, double temperaturaInicialAgua) {
+    public Tanque(double alturaInicialAgua, double temperaturaInicialAgua, double temperaturaDesejada, double vazaoDesejadaTanque) {
         alturaAgua = new ArrayList<>();
         temperaturaAgua = new ArrayList<>();
         temperaturaAgua.add(temperaturaInicialAgua);
         alturaAgua.add(alturaInicialAgua);
+
+        this.temperaturaDesejada = temperaturaDesejada;
+        this.vazaoDesejadaTanque = vazaoDesejadaTanque;
     }
 
-    public Tanque() {
-        this(0.0, 0.0);
+    public Tanque(double temperaturaDesejada, double vazaoDesejadaTanque) {
+        this(0.0, 0.0, temperaturaDesejada, vazaoDesejadaTanque);
     }
 
     private double getTemperaturaAgua(int t) {
@@ -48,12 +55,12 @@ public class Tanque {
             return 0;
         }
         //return 0; //vazão = 0
-        return 0.002 * Math.sqrt(2 * G * this.alturaAgua.get(t - 1));
+        return vazaoTorneira * Math.sqrt(2 * G * this.alturaAgua.get(t - 1));
     }
 
 
     public boolean isFull(int t) {
-        return this.getAlturaAtual(t) > alturaMaximaTanque;
+        return this.getAlturaAgua(t) > alturaMaximaTanque;
     }
 
 
