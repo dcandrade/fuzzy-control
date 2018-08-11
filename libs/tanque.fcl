@@ -73,9 +73,9 @@ RULEBLOCK No1
         RULE 7 : IF dv IS ok AND dt IS below THEN vq IS more;
         RULE 8 : IF dv IS ok AND dt IS below THEN vf IS less;
         
-        // Case 5:
-        RULE 9 : IF dv IS below AND dt IS ok THEN vq IS less;
-        RULE 10 : IF dv IS below AND dt IS ok THEN vf IS less;
+       // Case 5:
+        RULE 9 : IF dv IS below AND dt IS ok THEN vq IS more;
+        RULE 10 : IF dv IS below AND dt IS ok THEN vf IS more;
         
         // Case 6:
         RULE 11 : IF dv IS below AND dt IS above THEN vf IS more;
