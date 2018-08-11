@@ -29,21 +29,21 @@ public class Tanque {
         alturaAgua.add(alturaInicialAgua);
     }
 
-    public Tanque(){
+    public Tanque() {
         this(0.0, 0.0);
     }
 
-    private double getTemperaturaAgua(int t){
-        return this.temperaturaAgua.get(t/ DELTA_T);
+    private double getTemperaturaAgua(int t) {
+        return this.temperaturaAgua.get(t / DELTA_T);
     }
 
-    private double getAlturaAgua(int t){
-        return this.alturaAgua.get(t/ DELTA_T);
+    private double getAlturaAgua(int t) {
+        return this.alturaAgua.get(t / DELTA_T);
 
     }
 
     public double vazaoSaida(int t) {
-        t = t/ DELTA_T;
+        t = t / DELTA_T;
         if (t == 0) {
             return 0;
         }
@@ -70,7 +70,7 @@ public class Tanque {
 
     public double temperaturaSaida(int t) throws Exception {
 
-        double temp = (this.getTemperaturaAgua(t-1) * this.getAlturaAgua(t - 1) * (Math.PI * raioTanque * raioTanque))
+        double temp = (this.getTemperaturaAgua(t - 1) * this.getAlturaAgua(t - 1) * (Math.PI * raioTanque * raioTanque))
                 + (temperaturaEntradaAguaQuente * vazaoEntradaQuente * DELTA_T)
                 + (temperaturaEntradaAguaFria * vazaoEntradaQuente * DELTA_T);
         temp /= (this.getAlturaAgua(t - 1) * (Math.PI * Math.pow(raioTanque, 2))) + (vazaoEntradaQuente * DELTA_T + vazaoEntradaQuente * DELTA_T);

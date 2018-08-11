@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="14efbabc-456c-4cf9-a326-1199f9c8f539" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Fuzzy/Simulacao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Fuzzy/Simulacao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Fuzzy/Tanque.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Fuzzy/Tanque.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Simulacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Simulacao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Tanque.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tanque.java" afterDir="false" />
     </list>
@@ -18,17 +15,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Tanque.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Tanque.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Tanque.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="492">
-              <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
+            <state relative-caret-position="17">
+              <caret line="49" column="22" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1119#1120#0" expanded="true" />
-                <element signature="e#1149#1150#0" expanded="true" />
-                <element signature="e#1121#1122#0" expanded="true" />
-                <element signature="e#1163#1164#0" expanded="true" />
+                <element signature="e#1014#1015#0" expanded="true" />
+                <element signature="e#1044#1045#0" expanded="true" />
+                <element signature="e#1092#1093#0" expanded="true" />
+                <element signature="e#1152#1153#0" expanded="true" />
                 <element signature="e#2352#2353#0" expanded="true" />
                 <element signature="e#2408#2409#0" expanded="true" />
                 <element signature="e#2476#2477#0" expanded="true" />
@@ -51,13 +48,9 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Simulacao.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Simulacao.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Simulacao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -77,8 +70,8 @@
       <list>
         <option value="$PROJECT_DIR$/src/Tank.java" />
         <option value="$PROJECT_DIR$/src/Controller.java" />
-        <option value="$PROJECT_DIR$/src/Simulacao.java" />
         <option value="$PROJECT_DIR$/src/Tanque.java" />
+        <option value="$PROJECT_DIR$/src/Simulacao.java" />
       </list>
     </option>
   </component>
@@ -241,10 +234,10 @@
           <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1119#1120#0" expanded="true" />
-            <element signature="e#1149#1150#0" expanded="true" />
-            <element signature="e#1121#1122#0" expanded="true" />
-            <element signature="e#1163#1164#0" expanded="true" />
+            <element signature="e#1014#1015#0" expanded="true" />
+            <element signature="e#1044#1045#0" expanded="true" />
+            <element signature="e#1092#1093#0" expanded="true" />
+            <element signature="e#1152#1153#0" expanded="true" />
             <element signature="e#2352#2353#0" expanded="true" />
             <element signature="e#2408#2409#0" expanded="true" />
             <element signature="e#2476#2477#0" expanded="true" />
@@ -277,10 +270,10 @@
           <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1119#1120#0" expanded="true" />
-            <element signature="e#1149#1150#0" expanded="true" />
-            <element signature="e#1121#1122#0" expanded="true" />
-            <element signature="e#1163#1164#0" expanded="true" />
+            <element signature="e#1014#1015#0" expanded="true" />
+            <element signature="e#1044#1045#0" expanded="true" />
+            <element signature="e#1092#1093#0" expanded="true" />
+            <element signature="e#1152#1153#0" expanded="true" />
             <element signature="e#2352#2353#0" expanded="true" />
             <element signature="e#2408#2409#0" expanded="true" />
             <element signature="e#2476#2477#0" expanded="true" />
@@ -313,10 +306,10 @@
           <caret line="64" column="239" selection-start-line="64" selection-start-column="239" selection-end-line="64" selection-end-column="239" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1119#1120#0" expanded="true" />
-            <element signature="e#1149#1150#0" expanded="true" />
-            <element signature="e#1121#1122#0" expanded="true" />
-            <element signature="e#1163#1164#0" expanded="true" />
+            <element signature="e#1014#1015#0" expanded="true" />
+            <element signature="e#1044#1045#0" expanded="true" />
+            <element signature="e#1092#1093#0" expanded="true" />
+            <element signature="e#1152#1153#0" expanded="true" />
             <element signature="e#2352#2353#0" expanded="true" />
             <element signature="e#2408#2409#0" expanded="true" />
             <element signature="e#2476#2477#0" expanded="true" />
@@ -333,10 +326,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Simulacao.java">
+    <entry file="file://$PROJECT_DIR$/src/Tanque.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
+        <state relative-caret-position="17">
+          <caret line="49" column="22" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1014#1015#0" expanded="true" />
+            <element signature="e#1044#1045#0" expanded="true" />
+            <element signature="e#1092#1093#0" expanded="true" />
+            <element signature="e#1152#1153#0" expanded="true" />
+            <element signature="e#2352#2353#0" expanded="true" />
+            <element signature="e#2408#2409#0" expanded="true" />
+            <element signature="e#2476#2477#0" expanded="true" />
+            <element signature="e#2536#2537#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -351,23 +355,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Tanque.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1119#1120#0" expanded="true" />
-            <element signature="e#1149#1150#0" expanded="true" />
-            <element signature="e#1121#1122#0" expanded="true" />
-            <element signature="e#1163#1164#0" expanded="true" />
-            <element signature="e#2352#2353#0" expanded="true" />
-            <element signature="e#2408#2409#0" expanded="true" />
-            <element signature="e#2476#2477#0" expanded="true" />
-            <element signature="e#2536#2537#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/Simulacao.java">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
   <component name="masterDetails">
