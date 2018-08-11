@@ -26,6 +26,5 @@
 hs_err_pid*
 
 #IDE config
-.idea/
 *.iml
 out/
