@@ -86,11 +86,28 @@ public class Tanque {
         return temp;
     }
 
-    public void setVazaoEntradaFria(double vazaoEntradaFria) {
-        this.vazaoEntradaFria = vazaoEntradaFria;
+    public void setVazaoEntradaFria(double razao) { // razao [-1, 1]
+        this.vazaoEntradaFria += vazaoEntradaFria * razao;
     }
 
-    public void setVazaoEntradaQuente(double vazaoEntradaQuente) {
-        this.vazaoEntradaQuente = vazaoEntradaQuente;
+    public void setVazaoEntradaQuente(double razao) {
+        this.vazaoEntradaQuente += vazaoEntradaQuente * razao;
+    }
+
+    public void setVazaoTorneira(double razao) {
+        this.vazaoTorneira += vazaoTorneira * razao;
+    }
+
+    // retorna a diferença percentual entre a temperatura desejada e a temp atual.
+    //ex: se a temperatura atual for 50 e a desejada for 100, retornará 100 pois a
+    //temperatura atual tem que aumentar 100%.
+    public double offsetTemperatura(int t) {
+        var temp = this.getTemperaturaAgua(t);
+        return (this.temperaturaDesejada - temp) * 100 / temp;
+    }
+
+    public double offsetVazaoSaida(int t) {
+        var vazao = this.vazaoSaida(t);
+        return (this.vazaoDesejadaTanque - vazao) * 100 / vazao;
     }
 }
