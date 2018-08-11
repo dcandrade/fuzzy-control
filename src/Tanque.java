@@ -4,8 +4,8 @@ import java.util.List;
 public class Tanque {
     private final static double G = 9.8;
     public final static int DELTA_T = 1;
-    private final static double VAZAO_MAXIMA_ENTRADA_QUENTE = 1;
-    private final static double VAZAO_MAXIMA_ENTRADA_FRIA = 1;
+    private final static double VAZAO_MAXIMA_ENTRADA_QUENTE = 10;
+    private final static double VAZAO_MAXIMA_ENTRADA_FRIA = 10;
 
     private double alturaMaximaTanque = 10;
     private double raioTanque = 10;
@@ -16,7 +16,7 @@ public class Tanque {
     private double vazaoDesejadaTanque;
 
     private double temperaturaEntradaAguaFria = 10;
-    private double temperaturaEntradaAguaQuente = 35;
+    private double temperaturaEntradaAguaQuente = 100;
     private double vazaoTorneira = 0.02;
 
     private double temperaturaDesejada = 30;
@@ -75,7 +75,7 @@ public class Tanque {
         return novaAltura;
     }
 
-    public double temperaturaSaida(int t) throws Exception {
+    public double temperaturaSaida(int t) {
 
         double temp = (this.getTemperaturaAgua(t - 1) * this.getAlturaAgua(t - 1) * (Math.PI * raioTanque * raioTanque))
                 + (temperaturaEntradaAguaQuente * vazaoEntradaQuente * DELTA_T)
@@ -86,17 +86,19 @@ public class Tanque {
         return temp;
     }
 
-    public void setVazaoEntradaFria(double razao) { // razao [-1, 1]
-        this.vazaoEntradaFria += vazaoEntradaFria * razao;
+    public void setVazaoEntradaFria(double razao) { // razao [-100%, 100%]
+        var novaVazaoFria = vazaoEntradaFria + vazaoEntradaFria * razao / 100;
+        if (novaVazaoFria < VAZAO_MAXIMA_ENTRADA_FRIA)
+            this.vazaoEntradaFria += novaVazaoFria;
     }
 
     public void setVazaoEntradaQuente(double razao) {
-        this.vazaoEntradaQuente += vazaoEntradaQuente * razao;
+
+        var novaVazaoQuente = vazaoEntradaQuente + ((vazaoEntradaQuente * razao) / 100);
+        if (novaVazaoQuente < VAZAO_MAXIMA_ENTRADA_QUENTE)
+            this.vazaoEntradaQuente += novaVazaoQuente;
     }
 
-    public void setVazaoTorneira(double razao) {
-        this.vazaoTorneira += vazaoTorneira * razao;
-    }
 
     // retorna a diferença percentual entre a temperatura desejada e a temp atual.
     //ex: se a temperatura atual for 50 e a desejada for 100, retornará 100 pois a

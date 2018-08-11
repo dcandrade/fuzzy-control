@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 public class Simulacao {
     public static void main(String[] args) throws Exception {
         int t = 0;
-        var tanque = new Tanque(0, 0);
+        var tanque = new Tanque(1, 25 ,37, 5);
 
         BufferedWriter writer = Files.newBufferedWriter(Paths.get("notebooks/altura_com_vazao.txt"));
         writer.write("tempo,altura\n");
