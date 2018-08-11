@@ -3,11 +3,13 @@ import java.util.List;
 
 public class Tanque {
     private final static double G = 9.8;
-    public final static int DELTA_T = 10;
-    private final static double VAZAO_MAXIMA_ENTRADA_QUENTE = 100;
-    private final static double VAZAO_MAXIMA_ENTRADA_FRIA = 100;
+    public final static int DELTA_T = 1;
+    private final static double VAZAO_MAXIMA_ENTRADA_QUENTE = 100000;
+    private final static double VAZAO_MAXIMA_ENTRADA_FRIA = 100000;
 
-    public static double alturaMaximaTanque = 10;
+    public static final double ALTURA_MAXIMA_TANQUE = 100;
+    private static final double VAZAO_TORNEIRA = 0.002;
+
     private double raioTanque = 10;
 
 
@@ -17,10 +19,9 @@ public class Tanque {
 
     private double temperaturaEntradaAguaFria = 10;
     private double temperaturaEntradaAguaQuente = 100;
-    private double vazaoTorneira = 0.002;
     private boolean friaLigada;
     private boolean quenteLigada;
-    private double temperaturaDesejada = 30;
+    private double temperaturaDesejada;
 
 
     private List<Double> alturaAgua;
@@ -58,12 +59,15 @@ public class Tanque {
             return 0;
         }
         //return 0; //vazão = 0
-        return vazaoTorneira * Math.sqrt(2 * G * this.alturaAgua.get(t - 1));
+        return VAZAO_TORNEIRA * Math.sqrt(2 * G * this.alturaAgua.get(t - 1));
     }
 
+    public static double getVazaoMaxima(){
+        return VAZAO_TORNEIRA * Math.sqrt(2 * G * ALTURA_MAXIMA_TANQUE);
+    }
 
     public boolean isFull(int t) {
-        return this.getAlturaAgua(t) > alturaMaximaTanque;
+        return this.getAlturaAgua(t) > ALTURA_MAXIMA_TANQUE;
     }
 
 
@@ -138,16 +142,14 @@ public class Tanque {
     }
 
 
-    // retorna a diferença percentual entre a temperatura desejada e a temp atual.
-    //ex: se a temperatura atual for 50 e a desejada for 100, retornará 100 pois a
-    //temperatura atual tem que aumentar 100%.
+    // retorna o erro percentual entre a temperatura desejada e a temp atual.
     public double offsetTemperatura(int t) {
         var temp = this.getTemperaturaAgua(t);
-        return (this.temperaturaDesejada - temp) * 100 / temp;
+        return (this.temperaturaDesejada - temp) * 100 / temperaturaDesejada;
     }
 
     public double offsetVazaoSaida(int t) {
         var vazao = this.vazaoSaida(t);
-        return (this.vazaoDesejadaTanque - vazao) * 100 / vazao;
+        return (this.vazaoDesejadaTanque - vazao) * 100 / vazaoDesejadaTanque;
     }
 }

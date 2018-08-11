@@ -24,19 +24,19 @@ END_VAR
 
 FUZZIFY dv			
 	TERM above := (0, 0) (100,1);
-        TERM ok := (-20, 0) (0, 1) (20,0);
+        TERM ok := (-10, 0) (0, 1) (10,0);
 	TERM below := (-100, 1) (0,0);
 END_FUZZIFY
 
 FUZZIFY dt			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
 	TERM above := (0, 0) (100,1);
-        TERM ok := (-20, 0) (0, 1) (20,0);
+        TERM ok := (-10, 0) (0, 1) (10,0);
 	TERM below := (-100, 1) (0,0);
 END_FUZZIFY
 
 DEFUZZIFY vf			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
 	TERM more := (0, 0) (100,1);
-        TERM ok := (-20, 0) (0, 1) (20,0);
+        TERM ok := (-10, 0) (0, 1) (10,0);
 	TERM less := (-100, 1) (0,0);
 	
 	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
@@ -45,7 +45,7 @@ END_DEFUZZIFY
 
 DEFUZZIFY vq		// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
 	TERM more := (0, 0) (100,1);
-        TERM ok := (-20, 0) (0, 1) (20,0);
+        TERM ok := (-10, 0) (0, 1) (10,0);
 	TERM less := (-100, 1) (0,0);
 	
 	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
@@ -80,6 +80,16 @@ RULEBLOCK No1
         // Case 6:
         RULE 11 : IF dv IS below AND dt IS above THEN vf IS more;
         RULE 12 : IF dv IS below AND dt IS below THEN vq IS more;
+        
+        RULE 13: IF dt IS below THEN vq IS more;
+        RULE 14: IF dt IS below THEN vf IS less;
+        
+             
+        RULE 15: IF dt IS above THEN vq IS less;
+        RULE 16: IF dt IS above THEN vf IS more;
+        
+        RULE 17: IF dt IS ok THEN vq IS ok;
+        RULE 18: IF dt IS ok THEN vf IS ok;
 END_RULEBLOCK
 
 END_FUNCTION_BLOCK

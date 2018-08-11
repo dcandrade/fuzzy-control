@@ -8,16 +8,18 @@ public class Controller {
     }
 
     public void run() {
+        var vazaoMaxima = Tanque.getVazaoMaxima();
+        System.out.println(vazaoMaxima);
         var t = 0;
-        var temperaturaDesejada = 42.5;
-        var temp = -10.0;
-        var tanque = new Tanque(1, temp, temperaturaDesejada, 5);
-        double h, vaz, vf, vq;
+        var temperaturaDesejada = 17.75;
+        var vazaoDesejada = vazaoMaxima/2;
+        var temp = 15.0;
+        var tanque = new Tanque(1, temp, temperaturaDesejada, vazaoDesejada);
+        double h, vaz = 0, vf, vq;
 
 
-        while (Math.abs(temp - temperaturaDesejada) > 0.5) {
+        while (Math.abs(temp - temperaturaDesejada) > 1 || (Math.abs(vazaoDesejada-vaz)/vazaoDesejada) < 0.1) {
             t += Tanque.DELTA_T;
-
 
             h = tanque.getAlturaAtual(t);
             temp = tanque.temperaturaSaida(t);
@@ -32,7 +34,7 @@ public class Controller {
 
             tanque.setVazaoEntradaFria(vf);
             tanque.setVazaoEntradaQuente(vq);
-            System.out.println("h: " + h + " temp: " + temp);
+            System.out.println("--> h: " + h + " temp: " + temp + " vazao: " + vaz);
         }
 
         System.out.println("Temperatura atingida");
