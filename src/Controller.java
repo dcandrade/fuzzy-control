@@ -4,7 +4,7 @@ public class Controller {
     private final FIS load;
 
     public Controller() {
-        load = FIS.load("fuzzy.fcl");
+        load = FIS.load("libs/tanque.fcl");
     }
 
     public void run() throws Exception {
