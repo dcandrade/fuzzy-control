@@ -7,7 +7,7 @@ public class Simulacao {
         int t = 0;
         var tanque = new Tanque(1, 25 ,37, 5);
 
-        BufferedWriter writer = Files.newBufferedWriter(Paths.get("notebooks/altura_com_vazao.txt"));
+        BufferedWriter writer = Files.newBufferedWriter(Paths.get("notebooks/altura_com_vazao__.txt"));
         writer.write("tempo,altura\n");
         while (!tanque.isFull(t)) {
             t += Tanque.DELTA_T;

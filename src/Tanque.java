@@ -3,11 +3,11 @@ import java.util.List;
 
 public class Tanque {
     private final static double G = 9.8;
-    public final static int DELTA_T = 1;
+    public final static int DELTA_T = 10;
     private final static double VAZAO_MAXIMA_ENTRADA_QUENTE = 100;
     private final static double VAZAO_MAXIMA_ENTRADA_FRIA = 100;
 
-    private double alturaMaximaTanque = 10;
+    public static double alturaMaximaTanque = 10;
     private double raioTanque = 10;
 
 
@@ -17,8 +17,9 @@ public class Tanque {
 
     private double temperaturaEntradaAguaFria = 10;
     private double temperaturaEntradaAguaQuente = 100;
-    private double vazaoTorneira = 0.02;
-
+    private double vazaoTorneira = 0.002;
+    private boolean friaLigada;
+    private boolean quenteLigada;
     private double temperaturaDesejada = 30;
 
 
@@ -34,6 +35,8 @@ public class Tanque {
 
         this.temperaturaDesejada = temperaturaDesejada;
         this.vazaoDesejadaTanque = vazaoDesejadaTanque;
+        quenteLigada = true;
+        friaLigada = true;
     }
 
     public Tanque(double temperaturaDesejada, double vazaoDesejadaTanque) {
@@ -65,10 +68,19 @@ public class Tanque {
 
 
     public double getAlturaAtual(int t) {
+        var vazaoQuente = vazaoEntradaQuente;
+        var vazaoFria = vazaoEntradaFria;
+
+        if (!this.friaLigada) {
+            vazaoFria = 0;
+        }
+        if (!this.quenteLigada) {
+            vazaoQuente = 0;
+        }
 
         double novaAltura =
                 this.getAlturaAgua(t - 1) +
-                        (vazaoEntradaQuente + vazaoEntradaFria - this.vazaoSaida(t)) *
+                        (vazaoQuente + vazaoFria - this.vazaoSaida(t)) *
                                 (DELTA_T / (Math.PI * raioTanque * raioTanque));
 
         this.alturaAgua.add(novaAltura);
@@ -76,11 +88,21 @@ public class Tanque {
     }
 
     public double temperaturaSaida(int t) {
+        var vazaoQuente = vazaoEntradaQuente;
+        var vazaoFria = vazaoEntradaFria;
+
+        if (!this.friaLigada) {
+            vazaoFria = 0;
+        }
+        if (!this.quenteLigada) {
+            vazaoQuente = 0;
+        }
+
 
         double temp = (this.getTemperaturaAgua(t - 1) * this.getAlturaAgua(t - 1) * (Math.PI * raioTanque * raioTanque))
-                + (temperaturaEntradaAguaQuente * vazaoEntradaQuente * DELTA_T)
-                + (temperaturaEntradaAguaFria * vazaoEntradaQuente * DELTA_T);
-        temp /= (this.getAlturaAgua(t - 1) * (Math.PI * Math.pow(raioTanque, 2))) + (vazaoEntradaQuente * DELTA_T + vazaoEntradaQuente * DELTA_T);
+                + (temperaturaEntradaAguaQuente * vazaoQuente * DELTA_T)
+                + (temperaturaEntradaAguaFria * vazaoFria * DELTA_T);
+        temp /= (this.getAlturaAgua(t - 1) * (Math.PI * raioTanque * raioTanque)) + (vazaoQuente * DELTA_T + vazaoFria * DELTA_T);
 
         this.temperaturaAgua.add(temp);
         return temp;
@@ -90,6 +112,22 @@ public class Tanque {
         var novaVazaoFria = vazaoEntradaFria + vazaoEntradaFria * razao / 100;
         if (novaVazaoFria < VAZAO_MAXIMA_ENTRADA_FRIA)
             this.vazaoEntradaFria += novaVazaoFria;
+    }
+
+    public void desligarEntradaFria() {
+        this.friaLigada = false;
+    }
+
+    public void desligarEntradaQuente() {
+        this.quenteLigada = false;
+    }
+
+    public void ligarEntradaFria() {
+        this.friaLigada = true;
+    }
+
+    public void ligarEntradaQuente() {
+        this.quenteLigada = true;
     }
 
     public void setVazaoEntradaQuente(double razao) {

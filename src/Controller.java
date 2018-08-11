@@ -9,14 +9,15 @@ public class Controller {
 
     public void run() {
         var t = 0;
-        var temperaturaDesejada = 37;
+        var temperaturaDesejada = 42.5;
         var temp = -10.0;
-        var tanque = new Tanque(1, temp ,temperaturaDesejada, 5);
+        var tanque = new Tanque(1, temp, temperaturaDesejada, 5);
         double h, vaz, vf, vq;
 
 
-        while (Math.abs(temp-temperaturaDesejada) > 1) {
+        while (Math.abs(temp - temperaturaDesejada) > 0.5) {
             t += Tanque.DELTA_T;
+
 
             h = tanque.getAlturaAtual(t);
             temp = tanque.temperaturaSaida(t);
