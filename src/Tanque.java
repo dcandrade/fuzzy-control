@@ -4,8 +4,8 @@ import java.util.List;
 public class Tanque {
     private final static double G = 9.8;
     public final static int DELTA_T = 1;
-    private final static double VAZAO_MAXIMA_ENTRADA_QUENTE = 10;
-    private final static double VAZAO_MAXIMA_ENTRADA_FRIA = 10;
+    private final static double VAZAO_MAXIMA_ENTRADA_QUENTE = 100;
+    private final static double VAZAO_MAXIMA_ENTRADA_FRIA = 100;
 
     private double alturaMaximaTanque = 10;
     private double raioTanque = 10;

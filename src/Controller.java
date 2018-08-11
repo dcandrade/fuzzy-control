@@ -9,11 +9,13 @@ public class Controller {
 
     public void run() {
         var t = 0;
-        var tanque = new Tanque(1, -10 ,37, 5);
-        double h, temp, vaz, vf, vq;
+        var temperaturaDesejada = 37;
+        var temp = -10.0;
+        var tanque = new Tanque(1, temp ,temperaturaDesejada, 5);
+        double h, vaz, vf, vq;
 
 
-        while (!tanque.isFull(t)) {
+        while (Math.abs(temp-temperaturaDesejada) > 1) {
             t += Tanque.DELTA_T;
 
             h = tanque.getAlturaAtual(t);
@@ -32,7 +34,7 @@ public class Controller {
             System.out.println("h: " + h + " temp: " + temp);
         }
 
-        System.out.println("Tanque cheio");
+        System.out.println("Temperatura atingida");
     }
 
     public static void main(String[] args) {
