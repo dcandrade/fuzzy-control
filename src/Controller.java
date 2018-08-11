@@ -4,12 +4,12 @@ public class Controller {
     private final FIS load;
 
     public Controller() {
-        load = FIS.load('fuzzy.fcl');
+        load = FIS.load("fuzzy.fcl");
     }
 
-    public void run(){
+    public void run() throws Exception {
         int t = 0;
-        var tanque = new Tanque();
+        var tanque = new Tanque(1, 20);
 
 
         while (!tanque.isFull(t)) {
