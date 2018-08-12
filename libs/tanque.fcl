@@ -25,14 +25,14 @@ END_VAR
 FUZZIFY dv			
 	TERM above := (-20, 0) (100,1);
         TERM near := (-30, 0) (0, 1) (1,0);
-        TERM perfect:= (-10, 0) (0, 1) (10, 0);
+        TERM perfect:= (-5, 0) (0, 1) (5, 0);
 	TERM below := (-100, 1) (0,0);
 END_FUZZIFY
 
 FUZZIFY dt			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
 	TERM above := (0, 0) (100,1);
         TERM near := (-30, 0) (0, 1) (1,0);
-        TERM perfect:= (-10, 0) (0, 1) (10, 0);
+        TERM perfect:= (-5, 0) (0, 1) (5, 0);
 	TERM below := (-100, 1) (0,0);
 END_FUZZIFY
 
@@ -93,6 +93,8 @@ RULEBLOCK No1
         
         RULE 13: IF dt IS below THEN vq IS avg;
         RULE 14: IF dt IS above THEN vf IS avg;
+        
+
         
         RULE 15: IF dt IS near AND dv IS near THEN vq IS small;
         RULE 15: IF dt IS near AND dv IS near THEN vf IS small;

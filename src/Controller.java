@@ -12,27 +12,27 @@ public class Controller {
         System.out.println(vazaoMaxima);
         var t = 0;
         var temperaturaDesejada = 30.75;
-        var vazaoDesejada = vazaoMaxima/2;
-        var temp = 25.0;
+        var vazaoDesejada = vazaoMaxima ;
+        var temp = 30.0;
         var tanque = new Tanque(0, temp, temperaturaDesejada, vazaoDesejada);
         double h, vaz = 0, vf, vq;
         var erroVazao = 100.0;
         var erroTemp = 100.0;
         System.out.println("Temperatura Desejada: " + temperaturaDesejada + ", Vazão Desejada: " + vazaoDesejada);
 
-        while (Math.abs(erroTemp) > 0.05 || Math.abs(erroVazao) > 0.2) {
+        while (Math.abs(erroTemp) > 0.05 || Math.abs(erroVazao) > 0.05) {
             t += Tanque.DELTA_T;
 
             h = tanque.getAlturaAtual(t);
             temp = tanque.temperaturaSaida(t);
             vaz = tanque.vazaoSaida(t);
 
-            erroVazao = (vaz-vazaoDesejada) / vazaoDesejada; // se positivo vazao tem q aumentar, mais baixa q o esperado
+            erroVazao = (vaz - vazaoDesejada) / vazaoDesejada; // se positivo vazao tem q aumentar, mais baixa q o esperado
 
             erroTemp = (temp - temperaturaDesejada) / temperaturaDesejada; // se positivo temperatura tá mais alta q o esperado
 
-            fis.setVariable("dv", erroVazao);
-            fis.setVariable("dt", erroTemp);
+            fis.setVariable("dv", erroVazao * 100); // entrada do controlador é em %
+            fis.setVariable("dt", erroTemp * 100);
             fis.evaluate();
             vf = fis.getVariable("vf").getValue();
             vq = fis.getVariable("vq").getValue();

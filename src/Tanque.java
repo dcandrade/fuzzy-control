@@ -4,8 +4,8 @@ import java.util.List;
 public class Tanque {
     private final static double G = 9.8;
     public final static int DELTA_T = 1;
-    private final static double VAZAO_MAXIMA_ENTRADA_QUENTE = 100;
-    private final static double VAZAO_MAXIMA_ENTRADA_FRIA = 100;
+    private final static double VAZAO_MAXIMA_ENTRADA_QUENTE = 10;
+    private final static double VAZAO_MAXIMA_ENTRADA_FRIA = 10;
 
     public static final double ALTURA_MAXIMA_TANQUE = 10;
     private static final double VAZAO_TORNEIRA = 0.002;
@@ -114,7 +114,7 @@ public class Tanque {
 
     public void setVazaoEntradaFria(double razao) { // razao [-100%, 100%]
         //var novaVazaoFria = vazaoEntradaFria + vazaoEntradaFria * razao / 100;
-       vazaoEntradaFria = VAZAO_MAXIMA_ENTRADA_FRIA * razao / 100;
+        vazaoEntradaFria = VAZAO_MAXIMA_ENTRADA_FRIA * razao / 100;
     }
 
     public void desligarEntradaFria() {
