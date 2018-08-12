@@ -4,13 +4,13 @@ import java.util.List;
 public class Tanque {
     private final static double G = 9.8;
     public final static int DELTA_T = 1;
-    private final static double VAZAO_MAXIMA_ENTRADA_QUENTE = 100000;
-    private final static double VAZAO_MAXIMA_ENTRADA_FRIA = 100000;
+    private final static double VAZAO_MAXIMA_ENTRADA_QUENTE = 100;
+    private final static double VAZAO_MAXIMA_ENTRADA_FRIA = 100;
 
-    public static final double ALTURA_MAXIMA_TANQUE = 100;
+    public static final double ALTURA_MAXIMA_TANQUE = 10;
     private static final double VAZAO_TORNEIRA = 0.002;
 
-    private double raioTanque = 10;
+    private double raioTanque = 2;
 
 
     private double vazaoEntradaQuente = 1;
@@ -62,7 +62,7 @@ public class Tanque {
         return VAZAO_TORNEIRA * Math.sqrt(2 * G * this.alturaAgua.get(t - 1));
     }
 
-    public static double getVazaoMaxima(){
+    public static double getVazaoMaxima() {
         return VAZAO_TORNEIRA * Math.sqrt(2 * G * ALTURA_MAXIMA_TANQUE);
     }
 
@@ -113,9 +113,8 @@ public class Tanque {
     }
 
     public void setVazaoEntradaFria(double razao) { // razao [-100%, 100%]
-        var novaVazaoFria = vazaoEntradaFria + vazaoEntradaFria * razao / 100;
-        if (novaVazaoFria < VAZAO_MAXIMA_ENTRADA_FRIA)
-            this.vazaoEntradaFria += novaVazaoFria;
+        //var novaVazaoFria = vazaoEntradaFria + vazaoEntradaFria * razao / 100;
+       vazaoEntradaFria = VAZAO_MAXIMA_ENTRADA_FRIA * razao / 100;
     }
 
     public void desligarEntradaFria() {
@@ -136,9 +135,8 @@ public class Tanque {
 
     public void setVazaoEntradaQuente(double razao) {
 
-        var novaVazaoQuente = vazaoEntradaQuente + ((vazaoEntradaQuente * razao) / 100);
-        if (novaVazaoQuente < VAZAO_MAXIMA_ENTRADA_QUENTE)
-            this.vazaoEntradaQuente += novaVazaoQuente;
+        //var novaVazaoQuente = vazaoEntradaQuente + ((vazaoEntradaQuente * razao) / 100);
+        vazaoEntradaQuente = VAZAO_MAXIMA_ENTRADA_QUENTE * razao / 100;
     }
 
 

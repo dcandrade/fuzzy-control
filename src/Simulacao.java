@@ -16,7 +16,7 @@ public class Simulacao {
             double temp = tanque.temperaturaSaida(t);
             double v = tanque.vazaoSaida(t);
 
-            System.out.println(t+", "+h);
+            System.out.println(t+", "+h+", "+v);
             writer.write(t+","+h+'\n');
 
         }

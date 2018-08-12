@@ -11,22 +11,28 @@ public class Controller {
         var vazaoMaxima = Tanque.getVazaoMaxima();
         System.out.println(vazaoMaxima);
         var t = 0;
-        var temperaturaDesejada = 17.75;
+        var temperaturaDesejada = 30.75;
         var vazaoDesejada = vazaoMaxima/2;
-        var temp = 15.0;
-        var tanque = new Tanque(1, temp, temperaturaDesejada, vazaoDesejada);
+        var temp = 25.0;
+        var tanque = new Tanque(0, temp, temperaturaDesejada, vazaoDesejada);
         double h, vaz = 0, vf, vq;
+        var erroVazao = 100.0;
+        var erroTemp = 100.0;
+        System.out.println("Temperatura Desejada: " + temperaturaDesejada + ", Vazão Desejada: " + vazaoDesejada);
 
-
-        while (Math.abs(temp - temperaturaDesejada) > 1 || (Math.abs(vazaoDesejada-vaz)/vazaoDesejada) < 0.1) {
+        while (Math.abs(erroTemp) > 0.05 || Math.abs(erroVazao) > 0.2) {
             t += Tanque.DELTA_T;
 
             h = tanque.getAlturaAtual(t);
             temp = tanque.temperaturaSaida(t);
             vaz = tanque.vazaoSaida(t);
 
-            fis.setVariable("dv", tanque.offsetVazaoSaida(t));
-            fis.setVariable("dt", tanque.offsetTemperatura(t));
+            erroVazao = (vaz-vazaoDesejada) / vazaoDesejada; // se positivo vazao tem q aumentar, mais baixa q o esperado
+
+            erroTemp = (temp - temperaturaDesejada) / temperaturaDesejada; // se positivo temperatura tá mais alta q o esperado
+
+            fis.setVariable("dv", erroVazao);
+            fis.setVariable("dt", erroTemp);
             fis.evaluate();
             vf = fis.getVariable("vf").getValue();
             vq = fis.getVariable("vq").getValue();
@@ -34,7 +40,7 @@ public class Controller {
 
             tanque.setVazaoEntradaFria(vf);
             tanque.setVazaoEntradaQuente(vq);
-            System.out.println("--> h: " + h + " temp: " + temp + " vazao: " + vaz);
+            System.out.println("--> h: " + h + " temp: " + temp + " vazao: " + vaz + ", erroVazao: " + erroVazao + ", erroTemp: " + erroTemp);
         }
 
         System.out.println("Temperatura atingida");

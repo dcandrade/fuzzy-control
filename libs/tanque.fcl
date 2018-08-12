@@ -23,30 +23,36 @@ VAR_OUTPUT				// Define output variable
 END_VAR
 
 FUZZIFY dv			
-	TERM above := (0, 0) (100,1);
-        TERM ok := (-10, 0) (0, 1) (10,0);
+	TERM above := (-20, 0) (100,1);
+        TERM near := (-30, 0) (0, 1) (1,0);
+        TERM perfect:= (-10, 0) (0, 1) (10, 0);
 	TERM below := (-100, 1) (0,0);
 END_FUZZIFY
 
 FUZZIFY dt			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
 	TERM above := (0, 0) (100,1);
-        TERM ok := (-10, 0) (0, 1) (10,0);
+        TERM near := (-30, 0) (0, 1) (1,0);
+        TERM perfect:= (-10, 0) (0, 1) (10, 0);
 	TERM below := (-100, 1) (0,0);
 END_FUZZIFY
 
 DEFUZZIFY vf			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
-	TERM more := (0, 0) (100,1);
-        TERM ok := (-10, 0) (0, 1) (10,0);
-	TERM less := (-100, 1) (0,0);
+	TERM closed := (0,1) (0.1, 0);
+	TERM small := (0, 1) (5, 0);
+        TERM mini := (0,0) (20, 1) (40,0);
+        TERM avg := (30, 0) (50, 1) (70,0);
+	TERM maxi := (60, 0) (80,1) (100, 1);
 	
 	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
 	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
 END_DEFUZZIFY
 
 DEFUZZIFY vq		// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
-	TERM more := (0, 0) (100,1);
-        TERM ok := (-10, 0) (0, 1) (10,0);
-	TERM less := (-100, 1) (0,0);
+	TERM closed := (0,1) (0.1, 0);
+	TERM small := (0, 1) (5, 0);
+        TERM mini := (0,0) (20, 1) (40,0);
+        TERM avg := (30, 0) (50, 1) (70,0);
+	TERM maxi := (60, 0) (80,1) (100, 1);
 	
 	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
 	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
@@ -58,38 +64,43 @@ RULEBLOCK No1
 	ACCU : MAX;			// Use 'max' accumulation method
 
         // Case 1
-        RULE 1 : IF dv IS above AND dt IS ok THEN vq IS less;
-        RULE 2 : IF dv IS above AND dt IS ok THEN vf IS less;
-        
-        // Case 2:
-        RULE 3 : IF dv IS above AND dt IS above THEN vq IS less;
-        RULE 4 : IF dv IS above AND dt IS below THEN vf IS less;
+        RULE 1 :IF dv IS above THEN vq IS closed;
+        RULE 2: IF dv IS above THEN vf IS closed;
         
         // Case 3:
-        RULE 5 : IF dv IS ok AND dt IS above THEN vq IS less;
-        RULE 6 : IF dv IS ok AND dt IS above THEN vf IS more;
+        RULE 3 :IF dv IS near AND dt IS below THEN vq IS mini;
+        RULE 4: IF dv IS near AND dt IS above THEN vf IS mini;
         
-        // Case 4:
-        RULE 7 : IF dv IS ok AND dt IS below THEN vq IS more;
-        RULE 8 : IF dv IS ok AND dt IS below THEN vf IS less;
+        // Case 3:
+        RULE 5 :IF dv IS perfect THEN vq IS closed;
+        RULE 6: IF dv IS perfect THEN vf IS closed;
+        
+        
+     // Case 3:
+        RULE 5 :IF dt IS perfect THEN vq IS closed;
+        RULE 6: IF dt IS perfect THEN vf IS closed;
         
         // Case 5:
-        RULE 9 : IF dv IS below AND dt IS ok THEN vq IS more;
-        RULE 10 : IF dv IS below AND dt IS ok THEN vf IS more;
+        RULE 7 : IF dv IS below AND dt IS near THEN vq IS mini;
+        RULE 8 : IF dv IS below AND dt IS near THEN vf IS mini;
         
         // Case 6:
-        RULE 11 : IF dv IS below AND dt IS above THEN vf IS more;
-        RULE 12 : IF dv IS below AND dt IS below THEN vq IS more;
+        RULE 9 : IF dv IS below AND dt IS above THEN vf IS maxi;
+        RULE 10 : IF dv IS below AND dt IS above THEN vq IS mini;
         
-        RULE 13: IF dt IS below THEN vq IS more;
-        RULE 14: IF dt IS below THEN vf IS less;
+        RULE 11 : IF dv IS below AND dt IS below THEN vq IS maxi;
+        RULE 12 : IF dv IS below AND dt IS below THEN vf IS mini;
         
-             
-        RULE 15: IF dt IS above THEN vq IS less;
-        RULE 16: IF dt IS above THEN vf IS more;
+        RULE 13: IF dt IS below THEN vq IS avg;
+        RULE 14: IF dt IS above THEN vf IS avg;
         
-        RULE 17: IF dt IS ok THEN vq IS ok;
-        RULE 18: IF dt IS ok THEN vf IS ok;
+        RULE 15: IF dt IS near AND dv IS near THEN vq IS small;
+        RULE 15: IF dt IS near AND dv IS near THEN vf IS small;
+        
+        RULE 17: IF dt IS perfect AND dv IS near THEN vq IS closed;
+        RULE 17: IF dt IS perfect AND dv IS near THEN vf IS closed;
+        
+      
 END_RULEBLOCK
 
 END_FUNCTION_BLOCK
