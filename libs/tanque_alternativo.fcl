@@ -1,0 +1,109 @@
+/*
+	Example: A tip calculation FIS (fuzzy inference system)
+	Calculates tip based on 'servie' and 'food'
+
+	If you want to about this example (and fuzzy logic), please 
+	read Matlab's tutorial on fuzzy logic toolbox 
+	http://www.mathworks.com/access/helpdesk/help/pdf_doc/fuzzy/fuzzy.pdf
+
+									Pablo Cingolani 
+									pcingola@users.sourceforge.net
+*/
+
+FUNCTION_BLOCK tipper	// Block definition (there may be more than one block per file)
+
+VAR_INPUT
+	dv : REAL; // diferença da vazão (saída - desejada)
+	dt : REAL; // variação da temperatura (saída - desejada)
+END_VAR
+
+VAR_OUTPUT				// Define output variable
+	vq : REAL; //hot water input
+	vf : REAL; //cold water input
+END_VAR
+
+FUZZIFY dv			
+	TERM above := (0, 1) (100,1); // limite mais brusco e pertinência =1 em todo o conjunt0
+        TERM near := (-30, 0) (0, 1) (1,0);
+        TERM perfect:= (-5, 0) (0, 1) (5, 0);
+	TERM below := (-100, 1) (0,1) (0.1,0); // limite mais brusco e pertinência =1 em todo o conjunt0
+END_FUZZIFY
+
+FUZZIFY dt			// Fuzzify input variable 'food': { 'rancid', 'delicious' }
+	TERM above := (0, 1) (100,1); // limite mais brusco e pertinência =1 em todo o conjunt0
+        TERM near := (-30, 0) (0, 1) (1,0);
+        TERM perfect:= (-5, 0) (0, 1) (5, 0);
+	TERM below := (-100, 1) (0,1) (0.1,0); // limite mais brusco e pertinência =1 em todo o conjunt0
+END_FUZZIFY
+
+DEFUZZIFY vf			// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM closed := (0,1) (0.1, 0);
+	TERM small := (0, 1) (5, 0);
+        TERM mini := (0,0) (20, 1) (40,0);
+        TERM avg := (30, 0) (50, 1) (70,0);
+	TERM maxi := (60, 0) (80,1) (100, 1);
+	
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+DEFUZZIFY vq		// Defzzzify output variable 'tip' : {'cheap', 'average', 'generous' }
+	TERM closed := (0,1) (0.1, 0);
+	TERM small := (0, 1) (5, 0);
+        TERM mini := (0,0) (20, 1) (40,0);
+        TERM avg := (30, 0) (50, 1) (70,0);
+	TERM maxi := (60, 0) (80,1) (100, 1);
+	
+	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	AND : MIN;			// Use 'min' for 'and' (also implicit use 'max' for 'or' to fulfill DeMorgan's Law)
+	ACT : MIN;			// Use 'min' activation method
+	ACCU : MAX;			// Use 'max' accumulation method
+
+        // Case 1
+        RULE 1 :IF dv IS above THEN vq IS closed;
+        RULE 2: IF dv IS above THEN vf IS closed;
+        
+        // Case 3:
+        RULE 3 :IF dv IS near AND dt IS below THEN vq IS mini;
+        RULE 4: IF dv IS near AND dt IS above THEN vf IS mini;
+        
+        // Case 3:
+        RULE 5 :IF dv IS perfect THEN vq IS closed;
+        RULE 6: IF dv IS perfect THEN vf IS closed;
+        
+        
+     // Case 3:
+        RULE 7 :IF dt IS perfect THEN vq IS closed;
+        RULE 8: IF dt IS perfect THEN vf IS closed;
+        
+        // Case 5:
+        RULE 7 : IF dv IS below AND dt IS near THEN vq IS mini;
+        RULE 8 : IF dv IS below AND dt IS near THEN vf IS mini;
+        
+        // Case 6:
+        RULE 9 : IF dv IS below AND dt IS above THEN vf IS maxi;
+        RULE 10 : IF dv IS below AND dt IS above THEN vq IS mini;
+        
+        RULE 11 : IF dv IS below AND dt IS below THEN vq IS maxi;
+        RULE 12 : IF dv IS below AND dt IS below THEN vf IS mini;
+        
+        RULE 13: IF dt IS below THEN vq IS avg;
+        RULE 14: IF dt IS above THEN vf IS avg;
+        
+
+        
+        RULE 15: IF dt IS near AND dv IS near THEN vq IS small;
+        RULE 15: IF dt IS near AND dv IS near THEN vf IS small;
+        
+        RULE 17: IF dt IS perfect AND dv IS near THEN vq IS closed;
+        RULE 17: IF dt IS perfect AND dv IS near THEN vf IS closed;
+        
+      
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+

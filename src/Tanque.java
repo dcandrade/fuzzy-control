@@ -17,8 +17,8 @@ public class Tanque {
     private double vazaoEntradaFria = 1;
     private double vazaoDesejadaTanque;
 
-    private double temperaturaEntradaAguaFria = 10;
-    private double temperaturaEntradaAguaQuente = 100;
+    private double temperaturaEntradaAguaFria = 22;
+    private double temperaturaEntradaAguaQuente = 85;
     private boolean friaLigada;
     private boolean quenteLigada;
     private double temperaturaDesejada;
