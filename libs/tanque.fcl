@@ -77,22 +77,22 @@ RULEBLOCK No1
         
         
      // Case 3:
-        RULE 5 :IF dt IS perfect THEN vq IS closed;
-        RULE 6: IF dt IS perfect THEN vf IS closed;
+        RULE 7 :IF dt IS perfect THEN vq IS closed;
+        RULE 8: IF dt IS perfect THEN vf IS closed;
         
         // Case 5:
-        RULE 7 : IF dv IS below AND dt IS near THEN vq IS mini;
-        RULE 8 : IF dv IS below AND dt IS near THEN vf IS mini;
+        RULE 9 : IF dv IS below AND dt IS near THEN vq IS mini;
+        RULE 10 : IF dv IS below AND dt IS near THEN vf IS mini;
         
         // Case 6:
-        RULE 9 : IF dv IS below AND dt IS above THEN vf IS maxi;
-        RULE 10 : IF dv IS below AND dt IS above THEN vq IS mini;
+        RULE 11: IF dv IS below AND dt IS above THEN vf IS maxi;
+        RULE 12 : IF dv IS below AND dt IS above THEN vq IS mini;
         
-        RULE 11 : IF dv IS below AND dt IS below THEN vq IS maxi;
-        RULE 12 : IF dv IS below AND dt IS below THEN vf IS mini;
+        RULE 13 : IF dv IS below AND dt IS below THEN vq IS maxi;
+        RULE 14 : IF dv IS below AND dt IS below THEN vf IS mini;
         
-        RULE 13: IF dt IS below THEN vq IS avg;
-        RULE 14: IF dt IS above THEN vf IS avg;
+        RULE 15: IF dt IS below THEN vq IS avg;
+        RULE 16: IF dt IS above THEN vf IS avg;
         
 
         
